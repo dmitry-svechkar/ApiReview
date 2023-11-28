@@ -92,3 +92,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = ((BASE_DIR / 'static/'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CHAR_MAX_LENGTH = 256
+
+SLUG_MAX_LENGTH = 50
+
+TEXT_MAX_LENGTH = 30
