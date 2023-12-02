@@ -21,7 +21,7 @@ router.register(
 )
 
 urlpatterns = [
-    path('v1/users/me/', CurrentUserView.as_view()),
-    path('v1/auth/token/', TokenView.as_view()),
-    path('v1/', include(router.urls)),
+    path('users/me/', CurrentUserView.as_view()),
+    path('auth/token/', TokenView.as_view()),
+    path('', include(router.urls)),
 ]
