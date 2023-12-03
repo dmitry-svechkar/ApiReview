@@ -22,19 +22,19 @@ router.register(
     basename='users'
 )
 router.register(
-  'titles',
-  TitleViewSet,
-  basename='titles'
+    'titles',
+    TitleViewSet,
+    basename='titles'
 )
 router.register(
-  'categories',
-  CategoryViewSet,
-  basename='categories'
+    'categories',
+    CategoryViewSet,
+    basename='categories'
 )
 router.register(
-  'genres',
-  GenreViewSet,
-  basename='genres'
+    'genres',
+    GenreViewSet,
+    basename='genres'
 )
 
 urlpatterns = [

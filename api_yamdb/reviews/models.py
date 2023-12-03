@@ -9,7 +9,8 @@ from api.validators import validate_titles_year
 
 class Title(models.Model):
     name = models.CharField('Название', max_length=CHAR_MAX_LENGTH)
-    year = models.PositiveIntegerField('Год', validators=[validate_titles_year])
+    year = models.PositiveIntegerField('Год',
+                                       validators=[validate_titles_year])
     description = models.TextField('Описание', blank=True)
     genre = models.ManyToManyField('Genre', blank=True, related_name='title')
     category = models.ForeignKey(
