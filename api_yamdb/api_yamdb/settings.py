@@ -3,8 +3,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs'
-
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -142,3 +140,7 @@ TEXT_MAX_LENGTH = 30
 EMAIL_MAX_LENGTH = 254
 
 ROLE_MAX_LENGTH = 128
+
+USER_MAX_LENGTH = 150
+
+SECRET_KEY = 'WJiU(1k0jTW/7eB^3<(-F9$#&r"<Zf'
