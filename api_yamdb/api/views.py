@@ -9,6 +9,7 @@ from users.permissions import IsAdminUserOrReadOnly
 from .filters import TitleFilter
 from .serializers import (CategorySerializer, GenreSerializer,
                           TitleChangingSerializer, TitleReadingSerializer)
+from .paginatiors import ResponsePaginator
 
 
 class TitleViewSet(ModelViewSet):
@@ -18,6 +19,7 @@ class TitleViewSet(ModelViewSet):
     serializer_class = TitleChangingSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
     permission_classes = (IsAdminUserOrReadOnly,)
+    pagination_class = ResponsePaginator
     filter_backends = (DjangoFilterBackend,)
     filterset_class = TitleFilter
 
@@ -32,11 +34,12 @@ class CategoryViewSet(ModelViewSet):
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    pagination_class = ResponsePaginator
     http_method_names = ['get', 'post', 'delete',]
     permission_classes = (IsAdminUserOrReadOnly,)
     lookup_field = 'slug'
     filter_backends = (SearchFilter,)
-    search_fields = ('^name',)
+    search_fields = ('name',)
 
     def retrieve(self, request, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -52,6 +55,7 @@ class GenreViewSet(ModelViewSet):
     lookup_field = 'slug'
     search_fields = ('name',)
     filter_backends = (SearchFilter,)
+    pagination_class = ResponsePaginator
 
     def retrieve(self, request, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)

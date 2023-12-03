@@ -1,7 +1,6 @@
-from rest_framework.serializers import (CharField, ModelSerializer,
+from rest_framework.serializers import (ModelSerializer,
                                         SlugRelatedField)
 from reviews.models import Category, Genre, Title
-from django.conf import settings
 
 
 class CategorySerializer(ModelSerializer):
