@@ -1,18 +1,15 @@
-from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-
+from users.models import User
 from api_yamdb.settings import (CHAR_MAX_LENGTH,
                                 SLUG_MAX_LENGTH,
                                 TEXT_MAX_LENGTH)
-
-
-User = get_user_model()
+from api.validators import validate_titles_year
 
 
 class Title(models.Model):
     name = models.CharField('Название', max_length=CHAR_MAX_LENGTH)
-    year = models.PositiveIntegerField('Год')
+    year = models.PositiveIntegerField('Год', validators=[validate_titles_year])
     description = models.TextField('Описание', blank=True)
     genre = models.ManyToManyField('Genre', blank=True, related_name='title')
     category = models.ForeignKey(
