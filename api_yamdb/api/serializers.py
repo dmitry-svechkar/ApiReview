@@ -1,6 +1,7 @@
 from rest_framework.serializers import (CharField, ModelSerializer,
                                         SlugRelatedField)
 from reviews.models import Category, Genre, Title
+from django.conf import settings
 
 
 class CategorySerializer(ModelSerializer):
@@ -22,13 +23,12 @@ class GenreSerializer(ModelSerializer):
 class TitleReadingSerializer(ModelSerializer):
     "Класс-сериализатор для модели Title."
 
-    name = CharField(max_length=256)
     category = CategorySerializer(read_only=True)
     genre = GenreSerializer(many=True)
 
     class Meta:
         model = Title
-        fields = ('id', 'name', 'year', 'description', 'genre', 'category')
+        fields = ('__all__')
 
 
 class TitleChangingSerializer(ModelSerializer):
