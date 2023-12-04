@@ -75,7 +75,8 @@ class ReviewViewSet(ModelViewSet):
     """Вьюсет для модели отзывов Review."""
 
     serializer_class = ReviewSerializer
-    permission_classes = (IsOwnerOrReadOnly, IsAdminUser, ModeratorUser,)
+    permission_classes = (IsOwnerOrReadOnly | IsAdminUser | ModeratorUser,)
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_title(self):
         """Возвращает объект текущего произведения."""
@@ -97,7 +98,8 @@ class CommentViewSet(ModelViewSet):
     """Вьюсет для модели комментариев Comment."""
 
     serializer_class = CommentSerializer
-    permission_classes = (IsOwnerOrReadOnly, IsAdminUser, ModeratorUser,)
+    permission_classes = (IsOwnerOrReadOnly | IsAdminUser | ModeratorUser,)
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     def get_review(self):
         """Возвращает объект текущего отзыва."""
