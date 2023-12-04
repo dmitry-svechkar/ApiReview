@@ -5,6 +5,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
+SECRET_KEY = 'WJiU(1k0jTW/7eB^3<(-F9$#&r"<Zf'
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -97,8 +99,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'api.paginators.CustomPaginator',
 }
-
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
@@ -108,24 +110,6 @@ SIMPLE_JWT = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATICFILES_DIRS = ((BASE_DIR / 'static/'),)
-
-AUTH_USER_MODEL = 'users.User'
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ],
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
-    'AUTH_HEADER_TYPES': ('Bearer',),
-}
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -140,5 +124,3 @@ EMAIL_MAX_LENGTH = 254
 ROLE_MAX_LENGTH = 128
 
 USER_MAX_LENGTH = 150
-
-SECRET_KEY = 'WJiU(1k0jTW/7eB^3<(-F9$#&r"<Zf'
