@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="[http://some_place.com/image.png](https://github.com/KypaH4NK/api_yamdb/assets/138603861/19b60d2f-203f-41aa-a33e-0a9817db2be0)" />
+  <img src="https://top-fon.com/uploads/posts/2023-01/1674926151_top-fon-com-p-chelovechki-dlya-prezentatsii-bez-fona-bes-18.jpg" />
 </p>
 # Описание
 Учебный прект ЯП. Работа в группе. Спринт 12.
