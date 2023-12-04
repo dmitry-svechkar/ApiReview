@@ -22,7 +22,6 @@ from .serializers import (
     ReviewSerializer,
     CommentSerializer
 )
-from .paginatiors import ResponsePaginator
 
 
 class TitleViewSet(ModelViewSet):
@@ -33,7 +32,6 @@ class TitleViewSet(ModelViewSet):
     serializer_class = TitleChangingSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
     permission_classes = (IsAdminUserOrReadOnly,)
-    pagination_class = ResponsePaginator
     filter_backends = (DjangoFilterBackend,)
     filterset_class = TitleFilter
 
@@ -48,7 +46,6 @@ class CategoryViewSet(ModelViewSet):
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    pagination_class = ResponsePaginator
     http_method_names = ['get', 'post', 'delete',]
     permission_classes = (IsAdminUserOrReadOnly,)
     lookup_field = 'slug'
@@ -69,7 +66,6 @@ class GenreViewSet(ModelViewSet):
     lookup_field = 'slug'
     search_fields = ('name',)
     filter_backends = (SearchFilter,)
-    pagination_class = ResponsePaginator
 
     def retrieve(self, request, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -79,7 +75,6 @@ class ReviewViewSet(ModelViewSet):
     """Вьюсет для модели отзывов Review."""
 
     serializer_class = ReviewSerializer
-    pagination_class = ResponsePaginator
     permission_classes = (IsOwnerOrReadOnly, IsAdminUser, ModeratorUser)
 
     # Запрещен method PUT
@@ -106,7 +101,6 @@ class CommentViewSet(ModelViewSet):
     """Вьюсет для модели комментариев Comment."""
 
     serializer_class = CommentSerializer
-    pagination_class = ResponsePaginator
     permission_classes = (IsOwnerOrReadOnly, IsAdminUser, ModeratorUser)
 
     # Запрещен method PUT
