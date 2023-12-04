@@ -1,6 +1,6 @@
+![image](https://github.com/KypaH4NK/api_yamdb/assets/138603861/19b60d2f-203f-41aa-a33e-0a9817db2be0)
 # Описание
 Учебный прект ЯП. Работа в группе. Спринт 12.
-![image](https://github.com/KypaH4NK/api_yamdb/assets/138603861/19b60d2f-203f-41aa-a33e-0a9817db2be0)
 
 
 ### Как запустить проект:
