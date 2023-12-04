@@ -1,6 +1,10 @@
-from rest_framework.serializers import (ModelSerializer,
-                                        SlugRelatedField)
-from reviews.models import Category, Genre, Title
+from rest_framework.serializers import (
+    ModelSerializer,
+    SlugRelatedField,
+    ValidationError,
+    IntegerField
+)
+from reviews.models import Category, Genre, Title, Review, Comment
 
 
 class CategorySerializer(ModelSerializer):
@@ -24,6 +28,7 @@ class TitleReadingSerializer(ModelSerializer):
 
     category = CategorySerializer(read_only=True)
     genre = GenreSerializer(many=True)
+    rating = IntegerField(read_only=True)
 
     class Meta:
         model = Title
@@ -44,3 +49,39 @@ class TitleChangingSerializer(ModelSerializer):
     class Meta:
         model = Title
         fields = ('id', 'name', 'year', 'description', 'genre', 'category')
+
+
+class ReviewSerializer(ModelSerializer):
+    """Serializer для модели Review."""
+    author = SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
+
+    class Meta:
+        model = Review
+        fields = ('id', 'text', 'author', 'score', 'pub_date')
+
+    def validate(self, data):
+        """Запрещает дублирование отзыва."""
+        if self.context.get('request').method == 'POST':
+            if Review.objects.filter(
+                    author=self.context.get('request').user,
+                    title=self.context.get('view').kwargs.get('title_id')
+            ).exists():
+                raise ValidationError(
+                    'Вы уже оставляли отзыв на это произведение.'
+                )
+        return data
+
+
+class CommentSerializer(ModelSerializer):
+    """Serializer для модели Comment."""
+    author = SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
+
+    class Meta:
+        model = Comment
+        fields = ('id', 'text', 'author', 'pub_date')

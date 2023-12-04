@@ -1,21 +1,35 @@
+from django.db.models import Avg
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from reviews.models import Category, Genre, Title
-from users.permissions import IsAdminUserOrReadOnly
+from reviews.models import Category, Genre, Title, Review
+from users.permissions import (
+    IsAdminUserOrReadOnly,
+    IsAdminUser,
+    IsOwnerOrReadOnly,
+    ModeratorUser
+)
 
 from .filters import TitleFilter
-from .serializers import (CategorySerializer, GenreSerializer,
-                          TitleChangingSerializer, TitleReadingSerializer)
+from .serializers import (
+    CategorySerializer,
+    GenreSerializer,
+    TitleChangingSerializer,
+    TitleReadingSerializer,
+    ReviewSerializer,
+    CommentSerializer
+)
 from .paginatiors import ResponsePaginator
 
 
 class TitleViewSet(ModelViewSet):
     """Класс-представление для работы с API с моделью Title."""
 
-    queryset = Title.objects.all()
+    queryset = Title.objects.annotate(
+        rating=Avg('reviews__score')).order_by('id')
     serializer_class = TitleChangingSerializer
     http_method_names = ['get', 'post', 'patch', 'delete']
     permission_classes = (IsAdminUserOrReadOnly,)
@@ -59,3 +73,57 @@ class GenreViewSet(ModelViewSet):
 
     def retrieve(self, request, **kwargs):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class ReviewViewSet(ModelViewSet):
+    """Вьюсет для модели отзывов Review."""
+
+    serializer_class = ReviewSerializer
+    pagination_class = ResponsePaginator
+    permission_classes = (IsOwnerOrReadOnly, IsAdminUser, ModeratorUser)
+
+    # Запрещен method PUT
+    http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options',
+                         'trace']
+
+    def get_title(self):
+        """Возвращает объект текущего произведения."""
+        return get_object_or_404(Title, pk=self.kwargs.get('title_id'))
+
+    def get_queryset(self):
+        """Возвращает queryset c отзывами для текущего произведения."""
+        return self.get_title().reviews.select_related('author')
+
+    def perform_create(self, serializer):
+        """Создает отзыв для текущего произведения."""
+        serializer.save(
+            author=self.request.user,
+            title=self.get_title()
+        )
+
+
+class CommentViewSet(ModelViewSet):
+    """Вьюсет для модели комментариев Comment."""
+
+    serializer_class = CommentSerializer
+    pagination_class = ResponsePaginator
+    permission_classes = (IsOwnerOrReadOnly, IsAdminUser, ModeratorUser)
+
+    # Запрещен method PUT
+    http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options',
+                         'trace']
+
+    def get_review(self):
+        """Возвращает объект текущего отзыва."""
+        return get_object_or_404(Review, pk=self.kwargs.get('review_id'))
+
+    def get_queryset(self):
+        """Возвращает queryset c комментариями для текущего отзыва."""
+        return self.get_review().comments.select_related('author')
+
+    def perform_create(self, serializer):
+        """Создает комментарий для текущего отзыва"""
+        serializer.save(
+            author=self.request.user,
+            review=self.get_review()
+        )
