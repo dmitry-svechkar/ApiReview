@@ -5,8 +5,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-SECRET_KEY = 'WJiU(1k0jTW/7eB^3<(-F9$#&r"<Zf'
-
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -99,7 +97,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'api.paginators.CustomPaginator',
+    'DEFAULT_PAGINATION_CLASS': 'api.paginatiors.CustomPaginator',
 }
 
 SIMPLE_JWT = {
@@ -124,3 +122,5 @@ EMAIL_MAX_LENGTH = 254
 ROLE_MAX_LENGTH = 128
 
 USER_MAX_LENGTH = 150
+
+SECRET_KEY = 'WJiU(1k0jTW/7eB^3<(-F9$#&r"<Zf'
