@@ -1,7 +1,7 @@
 import hashlib
 
-from django.core.mail import send_mail
 from api_yamdb.settings import SECRET_KEY
+from django.core.mail import send_mail
 
 
 def generate_activation_code(username: str) -> str:

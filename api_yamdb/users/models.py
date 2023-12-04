@@ -1,8 +1,7 @@
+from api_yamdb.settings import EMAIL_MAX_LENGTH, ROLE_MAX_LENGTH
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_email
 from django.db import models
-
-from api_yamdb.settings import EMAIL_MAX_LENGTH, ROLE_MAX_LENGTH
 
 
 class User(AbstractUser):

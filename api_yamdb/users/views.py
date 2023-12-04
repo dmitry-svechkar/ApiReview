@@ -1,19 +1,17 @@
+from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.mixins import CreateModelMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework import status
 
 from users.models import User
 from users.paginators import UsersPaginator
 from users.permissions import IsAdminUser
-from users.serializers import (
-    TokenSerializer,
-    CustomUserSerializer,
-    UserSerializer, UsersSerializer)
+from users.serializers import (CustomUserSerializer, TokenSerializer,
+                               UserSerializer, UsersSerializer)
 from users.utils import send_confirmation_code
 
 

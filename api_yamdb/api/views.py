@@ -1,27 +1,18 @@
 from django.db.models import Avg
-from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from reviews.models import Category, Genre, Title, Review
-from users.permissions import (
-    IsAdminUserOrReadOnly,
-    IsAdminUser,
-    IsOwnerOrReadOnly,
-    ModeratorUser
-)
+from reviews.models import Category, Genre, Review, Title
+from users.permissions import (IsAdminUser, IsAdminUserOrReadOnly,
+                               IsOwnerOrReadOnly, ModeratorUser)
 
 from .filters import TitleFilter
-from .serializers import (
-    CategorySerializer,
-    GenreSerializer,
-    TitleChangingSerializer,
-    TitleReadingSerializer,
-    ReviewSerializer,
-    CommentSerializer
-)
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, ReviewSerializer,
+                          TitleChangingSerializer, TitleReadingSerializer)
 
 
 class TitleViewSet(ModelViewSet):

@@ -1,10 +1,9 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from api.validators import validate_titles_year
+from api_yamdb.settings import (CHAR_MAX_LENGTH, SLUG_MAX_LENGTH,
+                                TEXT_MAX_LENGTH)
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from users.models import User
-from api_yamdb.settings import (CHAR_MAX_LENGTH,
-                                SLUG_MAX_LENGTH,
-                                TEXT_MAX_LENGTH)
-from api.validators import validate_titles_year
 
 
 class Title(models.Model):

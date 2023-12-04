@@ -1,3 +1,4 @@
+from api_yamdb.settings import EMAIL_MAX_LENGTH, USER_MAX_LENGTH
 from django.contrib.auth import get_user_model
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.validators import validate_email
@@ -5,8 +6,6 @@ from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 from rest_framework_simplejwt.tokens import AccessToken
 
-from api_yamdb.settings import (EMAIL_MAX_LENGTH,
-                                USER_MAX_LENGTH)
 from users.utils import generate_activation_code
 
 User = get_user_model()
