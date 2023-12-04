@@ -3,11 +3,9 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-from import_export.admin import ImportExportActionModelAdmin
-
 
 @admin.register(User)
-class PostAdmin(ImportExportActionModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = (
         'username',
         'email',

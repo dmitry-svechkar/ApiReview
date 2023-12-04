@@ -37,7 +37,7 @@ class CategoryViewSet(ModelViewSet):
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    http_method_names = ['get', 'post', 'delete',]
+    http_method_names = ['get', 'post', 'delete']
     permission_classes = (IsAdminUserOrReadOnly,)
     lookup_field = 'slug'
     filter_backends = (SearchFilter,)
@@ -52,7 +52,7 @@ class GenreViewSet(ModelViewSet):
 
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    http_method_names = ['get', 'post', 'delete',]
+    http_method_names = ['get', 'post', 'delete']
     permission_classes = (IsAdminUserOrReadOnly,)
     lookup_field = 'slug'
     search_fields = ('name',)
