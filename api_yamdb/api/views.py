@@ -5,10 +5,10 @@ from rest_framework import status
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
 from reviews.models import Category, Genre, Review, Title
 from users.permissions import (IsAdminUser, IsAdminUserOrReadOnly,
                                IsOwnerOrReadOnly, ModeratorUser)
-
 from .filters import TitleFilter
 from .serializers import (CategorySerializer, CommentSerializer,
                           GenreSerializer, ReviewSerializer,
@@ -94,7 +94,8 @@ class CommentViewSet(ModelViewSet):
 
     def get_review(self):
         """Возвращает объект текущего отзыва."""
-        return get_object_or_404(Review, pk=self.kwargs.get('review_id'))
+        return get_object_or_404(Review, pk=self.kwargs.get('review_id',
+                                                            'title_id'))
 
     def get_queryset(self):
         """Возвращает queryset c комментариями для текущего отзыва."""

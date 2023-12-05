@@ -1,4 +1,4 @@
-from api_yamdb.settings import EMAIL_MAX_LENGTH, USER_MAX_LENGTH
+from django.conf import settings as constant
 from django.contrib.auth import get_user_model
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.validators import validate_email
@@ -15,14 +15,14 @@ username_validator = UnicodeUsernameValidator()
 def validate_username_include_me(value):
     if value == 'me':
         raise serializers.ValidationError(
-            "Использовать имя 'me' в качестве username запрещено")
+            'Использовать имя "me" в качестве username запрещено')
     return value
 
 
 class CustomUserSerializer(serializers.Serializer):
-    email = serializers.EmailField(max_length=EMAIL_MAX_LENGTH,
+    email = serializers.EmailField(max_length=constant.EMAIL_MAX_LENGTH,
                                    validators=[validate_email])
-    username = serializers.CharField(max_length=USER_MAX_LENGTH,
+    username = serializers.CharField(max_length=constant.USER_MAX_LENGTH,
                                      validators=[username_validator,
                                                  validate_username_include_me])
 
@@ -38,9 +38,8 @@ class CustomUserSerializer(serializers.Serializer):
             return attrs
         if user.email == email:
             return user
-        else:
-            raise serializers.ValidationError(
-                {'email': 'Укажите корректный адрес электронной почты'})
+        raise serializers.ValidationError(
+            {'email': 'Укажите корректный адрес электронной почты'})
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)

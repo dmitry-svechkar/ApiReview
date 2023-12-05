@@ -7,8 +7,8 @@ User = get_user_model()
 class IsAdminUser(BasePermission):
     def has_permission(self, request, view):
         is_admin = bool(hasattr(request.user, 'role')
-                        and request.user.role == User.Role.ADMIN)
-        return is_admin or request.user.is_superuser
+                        and request.user.is_admin)
+        return is_admin
 
     def has_object_permission(self, request, view, obj):
         return self.has_permission(request, view)
@@ -24,7 +24,7 @@ class IsAdminUserOrReadOnly(IsAdminUser):
 class ModeratorUser(BasePermission):
     def has_permission(self, request, view):
         return bool(hasattr(request.user, 'role')
-                    and request.user.role == User.Role.MODERATOR)
+                    and request.user.is_moderator)
 
     def has_object_permission(self, request, view, obj):
         return self.has_permission(request, view)

@@ -1,5 +1,6 @@
 from rest_framework.serializers import (IntegerField, ModelSerializer,
                                         SlugRelatedField, ValidationError)
+
 from reviews.models import Category, Comment, Genre, Review, Title
 
 
@@ -60,10 +61,9 @@ class ReviewSerializer(ModelSerializer):
 
     def validate(self, data):
         """Запрещает дублирование отзыва."""
-        if self.context.get('request').method == 'POST':
-            if Review.objects.filter(
-                    author=self.context.get('request').user,
-                    title=self.context.get('view').kwargs.get('title_id')
+        if self.context['request'].method == 'POST':
+            if self.context['request'].user.reviews.filter(
+                title=self.context['view'].kwargs['title_id'],
             ).exists():
                 raise ValidationError(
                     'Вы уже оставляли отзыв на это произведение.'
