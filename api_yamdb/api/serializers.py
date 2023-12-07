@@ -5,7 +5,7 @@ from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class CategorySerializer(ModelSerializer):
-    "Класс-сериализатор для модели Category."
+    """Класс-сериализатор для модели Category."""
 
     class Meta:
         model = Category
@@ -13,7 +13,7 @@ class CategorySerializer(ModelSerializer):
 
 
 class GenreSerializer(ModelSerializer):
-    "Класс-сериализатор для модели Genre."
+    """Класс-сериализатор для модели Genre."""
 
     class Meta:
         model = Genre
@@ -21,7 +21,7 @@ class GenreSerializer(ModelSerializer):
 
 
 class TitleReadingSerializer(ModelSerializer):
-    "Класс-сериализатор для модели Title."
+    """Класс-сериализатор для модели Title."""
 
     category = CategorySerializer(read_only=True)
     genre = GenreSerializer(many=True)

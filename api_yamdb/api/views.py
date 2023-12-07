@@ -94,8 +94,8 @@ class CommentViewSet(ModelViewSet):
 
     def get_review(self):
         """Возвращает объект текущего отзыва."""
-        return get_object_or_404(Review, pk=self.kwargs.get('review_id',
-                                                            'title_id'))
+        return get_object_or_404(Review, pk=self.kwargs.get('review_id'),
+                                 title_id=self.kwargs.get('title_id'))
 
     def get_queryset(self):
         """Возвращает queryset c комментариями для текущего отзыва."""

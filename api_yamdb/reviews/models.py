@@ -1,8 +1,8 @@
+from django.conf import settings as constant
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from api.validators import validate_titles_year
-from django.conf import settings as constant
 from users.models import User
 
 
