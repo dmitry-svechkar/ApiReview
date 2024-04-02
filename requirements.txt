@@ -18,6 +18,7 @@ MarkupPy==1.14
 odfpy==1.4.1
 openpyxl==3.1.2
 packaging==23.2
+psycopg2==2.9.9
 pluggy==0.13.1
 py==1.11.0
 PyJWT==2.1.0
